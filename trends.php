@@ -61,7 +61,7 @@ function wordcloud_shortcode($atts) {
 
     // Busca todos os posts publicados
     $args = [
-        'post_type' => 'post',
+        'post_type' => ['post', 'page'],
         'post_status' => 'publish',
         'posts_per_page' => -1,
         'fields' => 'ids',
@@ -97,7 +97,7 @@ function wordcloud_shortcode($atts) {
         require_once __DIR__ . '/WordCloudSVG.php';
         $cloud = new WordCloudSVG(800, 400);
         $cloud->setWords($words);
-        return '<div style="overflow-x:auto;">' . $cloud->generate() . '</div>';
+        return '<div style="overflow-x:auto; display:flex; justify-content:center;">' . $cloud->generate() . '</div>';
     } else {
         return '<p>Erro: WordCloudSVG.php não encontrado.</p>';
     }
