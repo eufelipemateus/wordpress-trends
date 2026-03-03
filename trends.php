@@ -20,7 +20,6 @@ if ( ! class_exists( 'Trends_Plugin' ) ) {
         public static function init() {
             // Hooks principais
             add_action( 'admin_init', [ __CLASS__, 'require_jetpack' ] );
-            add_action( 'wp_head', [ __CLASS__, 'inline_styles' ] );
             add_shortcode( 'trends', [ __CLASS__, 'trends_shortcode' ] );
             add_shortcode( 'wordcloud', [ __CLASS__, 'wordcloud_shortcode' ] );
         }
@@ -35,10 +34,6 @@ if ( ! class_exists( 'Trends_Plugin' ) ) {
                     } );
                 }
             }
-        }
-
-        public static function inline_styles() {
-            echo '<style>#trends a{color:#000;font-weight:bolder;text-decoration:none;}</style>';
         }
 
 
