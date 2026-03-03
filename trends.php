@@ -10,9 +10,23 @@
  */
 
 
+
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly;
+    exit; // Exit if accessed directly;
 }
+
+// Garante que o Jetpack esteja ativo ao ativar o plugin
+add_action('admin_init', function() {
+    if ( is_admin() && current_user_can('activate_plugins') ) {
+        include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+        if ( !is_plugin_active('jetpack/jetpack.php') ) {
+            deactivate_plugins( plugin_basename(__FILE__) );
+            add_action('admin_notices', function() {
+                echo '<div class="notice notice-error"><p>O plugin <strong>Trends</strong> requer o Jetpack ativo. O plugin foi desativado.</p></div>';
+            });
+        }
+    }
+});
 
 
 function head(){
@@ -45,7 +59,7 @@ function get_posts_url(){
 
 
 function trends(){
-    return '<ol id="trends">
+    return '<ol id="trends" class="trends-list">
             '.get_posts_url().'
         </ol>';
 }
