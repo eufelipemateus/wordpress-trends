@@ -1,4 +1,6 @@
 <?php
+namespace Eufelipemateus\Trends;
+
 
 class WordCloudSVG
 {
